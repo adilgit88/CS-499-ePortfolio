@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Database Narrative | Adil Patel CS 499</title><link rel="stylesheet" href="../styles.css"></head><body><header><nav class="nav"><div class="brand">Adil Patel · CS 499</div><a href="../index.html">Home</a><a href="../self-assessment/index.html">Self-Assessment</a><a href="../code-review/index.html">Code Review</a><a href="../software-design-engineering/index.html">Software Design</a><a href="../algorithms-data-structures/index.html">Algorithms</a><a href="../databases/index.html">Databases</a></nav></header><main style="padding-top:34px"><article class="content"><h1>CS 499 Artifact Narrative: Databases</h1>
+<p><strong>Adil Patel</strong></p>
+<p>Southern New Hampshire University</p>
+<p>CS 499: Computer Science Capstone</p>
+<p><strong>Artifact:</strong> CS 340 Grazioso Salvare AnimalShelter MongoDB CRUD Module</p>
+<p><strong>Enhancement Focus:</strong> Secure Configuration, Validation, Indexing, Lifecycle Management, Detailed Results, and Automated Testing</p>
+<p><strong>Enhancement Completed:</strong> August 2026</p>
+<h2>Artifact Description</h2>
+<p>The artifact I selected for my database enhancement is the <code>AnimalShelter</code> data-access class from my CS 340 Grazioso Salvare project. The application uses Python and MongoDB. The class connects to the <code>aac</code> database and <code>animals</code> collection and provides create, read, update, and delete operations.</p>
+<p>The original artifact demonstrated basic MongoDB integration and included some useful checks, including blocking empty update and delete filters. However, it still reflected a classroom project. Credentials were embedded in the constructor, failures were printed to the console, the connection was not verified during initialization, there was no explicit cleanup method, indexes were not managed by the class, and result values often provided limited information.</p>
+<p>For CS 499, I preserved the purpose of the artifact while redesigning the database layer around stronger configuration, validation, error handling, lifecycle management, indexing, security, and automated testing.</p>
+<h2>Why I Selected This Artifact</h2>
+<p>I selected this artifact because the data layer protects one of an application&#x27;s most important resources: its data. A user interface can look correct while the underlying database layer still contains serious weaknesses involving exposed credentials, poor validation, unsafe updates, weak error reporting, or inefficient queries.</p>
+<p>One of the strongest improvements was removing hard-coded credentials. The enhanced class loads database settings from environment variables and fails clearly when required values are missing. Credentials are URL-encoded before building the MongoDB URI so special characters do not break the connection string.</p>
+<p>The enhanced class also uses a short server-selection timeout and immediately performs a <code>ping</code>, allowing connection or authentication failures to appear during initialization rather than later during the first CRUD operation.</p>
+<h2>Enhancement Comparison</h2>
+<table><thead><tr><th>Area</th><th>Original Artifact</th><th>Enhanced Artifact</th></tr></thead><tbody>
+<tr><td>Credentials</td><td>Username/password in source</td><td>Environment variables and encoded URI values</td></tr>
+<tr><td>Connection</td><td>No immediate verification</td><td>Timeout and ping during initialization</td></tr>
+<tr><td>Errors</td><td><code>print()</code></td><td>Structured logging and controlled results</td></tr>
+<tr><td>Lifecycle</td><td>No explicit cleanup</td><td><code>close()</code>, <code>__enter__()</code>, and <code>__exit__()</code></td></tr>
+<tr><td>Data quality</td><td>Basic dictionary checks</td><td>Required/allowed fields, normalization, protected identifiers</td></tr>
+<tr><td>Updates</td><td>Limited validation</td><td>Plain values only; raw operators and unsafe fields rejected</td></tr>
+<tr><td>Results</td><td>Boolean or one count</td><td>Inserted ID, matched, modified, and deleted counts</td></tr>
+<tr><td>Performance</td><td>No index plan</td><td>Focused single-field and compound indexes</td></tr>
+<tr><td>Testing</td><td>No repeatable suite</td><td>23 passing automated tests</td></tr>
+</tbody></table>
+<h2>Validation and Data Quality</h2>
+<p>MongoDB is intentionally flexible, but the application still benefits from clear boundaries. The enhanced class defines accepted fields, protects important identifiers, rejects blank identifiers and unknown fields, and keeps only a small set of fields required for a valid new animal record. Update callers provide normal values while the class builds the MongoDB update operation itself. Empty update and delete filters remain blocked.</p>
+<h2>More Informative Results</h2>
+<p>The enhanced return values make database behavior easier for the calling application to understand. Updates return both <code>matched_count</code> and <code>modified_count</code>. This matters because a record can match a filter but remain unchanged when the new value is identical to the current value. Create operations return the inserted identifier, and delete operations return clear deletion information.</p>
+<h2>Indexing and Performance</h2>
+<p>The enhanced class creates a unique index on <code>animal_id</code>, single-field indexes on commonly filtered fields such as <code>animal_type</code>, <code>breed</code>, and <code>sex_upon_outcome</code>, and a compound index that supports rescue-related filtering. I intentionally did not index every field because indexes consume storage and add work to inserts and updates.</p>
+<h2>Lifecycle Management and Error Handling</h2>
+<p>The class now provides a <code>close()</code> method and Python context-manager support through <code>__enter__()</code> and <code>__exit__()</code>. Failures are handled through structured logging, with care taken not to intentionally include passwords or complete connection strings in logs.</p>
+<h2>Automated Testing</h2>
+<p>To test the class without requiring a live MongoDB server or changing the course database, I allowed a client to be injected into the constructor. The test suite uses an isolated in-memory client that follows the small part of the PyMongo interface needed by the artifact. The tests cover configuration, connection behavior, indexes, CRUD operations, validation, duplicate handling, safety checks, health checks, logging, and cleanup. <strong>All 23 tests pass.</strong></p>
+<h2>Course Outcome Alignment</h2>
+<p>This enhancement strongly supports the fourth program outcome through environment-based configuration, typed result objects, MongoDB indexing, dependency injection, structured logging, validation, resource cleanup, and automated testing.</p>
+<p>It also directly supports the fifth outcome. Removing hard-coded credentials reduces the chance of exposing database access through source control. Empty update and delete filters help prevent accidental mass changes. Raw update operators and protected identifier changes are restricted, and failure paths are tested instead of only successful requests.</p>
+<p>The third outcome is supported through trade-off evaluation, including MongoDB flexibility versus application-level validation and faster indexed reads versus the storage and write costs of indexes. The second outcome is supported by documentation and clear result contracts. The first outcome is supported more fully across the portfolio, while clear interfaces and repeatable tests make this component easier for another developer to integrate.</p>
+<h2>Reflection on the Enhancement Process</h2>
+<p>The main lesson from this enhancement was that database security begins before a query is executed. Configuration, connection strings, connection checks, logging, validation, results, indexes, and client cleanup all affect whether the database layer is reliable and safe.</p>
+<p>I also learned that a simple return value can hide important states. Returning only <code>modified_count</code> made a successful match with no change look similar to a query that matched nothing. Separating matched and modified counts created a better contract.</p>
+<p>A major design challenge was improving validation without making MongoDB behave like a rigid relational table. I selected a controlled field list while requiring only essential identifiers. The trade-off is that the allowed field list must be updated when the application introduces a legitimate new field.</p>
+<p>Testing without a real database was another challenge. Dependency injection allowed me to use an isolated test client and verify class behavior safely. A larger production system could add integration tests against a temporary MongoDB instance, but the unit suite already gives fast evidence that the class rules work.</p>
+<h2>Incorporating Instructor Feedback</h2>
+<p>My instructor gave this milestone full credit and said the narrative clearly explained the changes and development process. The instructor also noted that my original plan had included the possibility of adding a Users table, but that the final artifact did not implement it. Importantly, the narrative did not claim that it did. I kept that consistency in the final portfolio. The final scope focuses on the database improvements that were actually completed rather than adding a feature only because it appeared in an earlier plan.</p>
+<h2>Overall Reflection</h2>
+<p>The original artifact demonstrated that I could connect Python to MongoDB and perform CRUD operations. The enhanced artifact demonstrates a broader understanding of how a database layer fits into a complete software system: protect configuration, validate boundaries, make failure visible, manage resources, plan query performance, return useful information, and provide repeatable evidence through tests.</p></article></main><footer>CS 499 Computer Science Capstone · Adil Patel · Southern New Hampshire University</footer></body></html>

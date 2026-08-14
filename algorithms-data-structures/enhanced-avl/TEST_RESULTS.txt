@@ -1,0 +1,53 @@
+CS 499 Milestone Three - Test Results
+Student: Adil Patel
+Date: July 24, 2026
+Artifact: Enhanced ABCU Course Planner using an AVL tree
+
+Build environment:
+- GNU C++ compiler 14.2.0
+- CMake project configured and built successfully
+- C++ standard: C++17
+- Strict warnings enabled: -Wall -Wextra -Wpedantic
+
+CTest result:
+- 2 of 2 test targets passed
+- 100% tests passed
+- 0 tests failed
+
+Automated behaviors covered:
+- Insert and search
+- Duplicate course detection
+- Alphanumeric in-order traversal
+- Safe clear/reset behavior
+- Left-left AVL rotation
+- Right-right AVL rotation
+- Left-right AVL rotation
+- Right-left AVL rotation
+- Sorted insertion of 1,000 courses
+- Reverse-sorted insertion of 1,000 courses
+- AVL height validation
+- Stored node-height validation
+- Valid CSV loading
+- Malformed row handling
+- Missing file handling
+- Invalid prerequisite handling
+- Reload removes prior tree data
+
+Sorted-input comparison with 1,000 courses:
+- Unbalanced BST height: 1,000
+- AVL tree height: 10
+- AVL balance check: passed
+
+Manual sample run with Input.csv:
+- Loaded 7 courses
+- AVL tree height: 3
+- Balance validation: passed
+- Printed courses in alphanumeric order
+- Located CSCI300
+- Displayed prerequisites CSCI200 and MATH201
+
+Additional verification:
+- Compiled the test executable with -Werror
+- AddressSanitizer passed
+- UndefinedBehaviorSanitizer passed
+- Leak detection passed

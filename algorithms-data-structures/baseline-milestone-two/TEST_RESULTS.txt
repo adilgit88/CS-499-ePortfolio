@@ -1,0 +1,29 @@
+CS 499 Milestone Two - Test Results
+Student: Adil Patel
+Date: July 19, 2026
+
+Build environment:
+- CMake project configured successfully
+- C++ standard: C++17
+
+Automated test result:
+- 1 of 1 CTest test targets passed
+- 100% tests passed
+- 0 tests failed
+
+Behaviors covered:
+- Insert and search
+- Duplicate course detection
+- Alphanumeric in-order traversal
+- Safe clear/reset behavior
+- Valid CSV loading
+- Malformed row handling
+- Missing file handling
+- Invalid prerequisite handling
+- Reload removes prior tree data
+
+Manual sample run:
+- Loaded 7 courses from Input.csv
+- Printed courses in alphanumeric order
+- Located CSCI300
+- Displayed prerequisites CSCI200 and MATH201

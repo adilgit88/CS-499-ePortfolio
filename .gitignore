@@ -1,0 +1,9 @@
+.DS_Store
+Thumbs.db
+.env
+*.log
+__pycache__/
+.pytest_cache/
+.venv/
+build/
+cmake-build-*/
