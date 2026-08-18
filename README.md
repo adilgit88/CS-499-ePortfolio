@@ -5,7 +5,7 @@ This repository contains my Computer Science capstone ePortfolio. It presents or
 ## Portfolio sections
 
 - [Professional Self-Assessment](professional-self-assessment.md)
-- Code Review video (linked from the GitHub Pages site after recording)
+- [Code Review video](https://youtu.be/Oi76uwImuvQ)
 - [Software Design and Engineering](software-design-engineering/)
 - [Algorithms and Data Structures](algorithms-data-structures/)
 - [Databases](databases/)
