@@ -1,4 +1,4 @@
-CS 499 Milestone Four - Database Enhancement Test Results
+Database Enhancement - Test Results
 Date: August 1, 2026
 Command: pytest -q
 

@@ -1,8 +1,8 @@
-# CS 499 Database Enhancement
+# Enhanced AnimalShelter Database Module
 
-## Artifact
+## Overview
 
-This project enhances the CS 340 Grazioso Salvare `AnimalShelter` MongoDB CRUD class for the CS 499 database category.
+This project enhances the original Python and MongoDB `AnimalShelter` CRUD class with stronger security, validation, reliability, performance planning, resource management, and automated testing.
 
 ## Improvements
 
@@ -14,9 +14,9 @@ This project enhances the CS 340 Grazioso Salvare `AnimalShelter` MongoDB CRUD c
 - Blocks empty update and delete filters.
 - Accepts plain update fields and creates the MongoDB `$set` document internally.
 - Rejects unsupported fields, protected identifier changes, and raw update operators.
-- Returns inserted identifiers and separate matched/modified/deleted counts.
-- Creates indexes for `animal_id`, `animal_type`, `breed`, `sex_upon_outcome`, and the common rescue-filter combination.
-- Includes repeatable unit tests using an in-memory fake MongoDB client, so tests do not touch production data.
+- Returns inserted identifiers and separate matched, modified, and deleted counts.
+- Creates indexes for `animal_id`, `animal_type`, `breed`, `sex_upon_outcome`, and a common rescue-filter combination.
+- Includes repeatable unit tests using an in-memory fake MongoDB client so tests do not touch real application data.
 
 ## Setup
 
@@ -27,7 +27,7 @@ This project enhances the CS 340 Grazioso Salvare `AnimalShelter` MongoDB CRUD c
    pip install -r requirements.txt
    ```
 
-3. Copy `.env.example` to `.env` and replace the example values. Export the variables into the shell before running the program. The `.env` file is excluded by `.gitignore`.
+3. Copy `.env.example` to `.env`, replace the example values, and export/load the variables before running the program. The real `.env` file is excluded by `.gitignore`.
 
 ## Example
 
@@ -46,7 +46,7 @@ with AnimalShelter() as shelter:
     print(result)
 ```
 
-## Run Tests
+## Run tests
 
 From the `enhanced` folder:
 
@@ -54,8 +54,8 @@ From the `enhanced` folder:
 pytest -q
 ```
 
-The tests cover configuration validation, encoded credentials, connection verification, index creation, create/read/update/delete behavior, dangerous empty-filter protection, update-operator rejection, detailed operation results, health checks, and connection cleanup.
+The tests cover configuration validation, encoded credentials, connection verification, index creation, create/read/update/delete behavior, dangerous empty-filter protection, update-operator rejection, detailed operation results, health checks, logging, and connection cleanup.
 
-## Design Trade-Offs
+## Design trade-offs
 
 The class validates a known set of animal fields to improve data quality. This is safer than accepting any document shape, but the allowed-field list must be updated when the application introduces a legitimate new field. The indexes improve common dashboard reads, but they also use storage and add a small cost to writes. For that reason, the enhancement creates a focused set of indexes that match the rescue dashboard's filter patterns rather than indexing every field.

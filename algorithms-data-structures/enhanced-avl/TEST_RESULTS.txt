@@ -1,4 +1,4 @@
-CS 499 Milestone Three - Test Results
+AVL Tree Enhancement - Test Results
 Student: Adil Patel
 Date: July 24, 2026
 Artifact: Enhanced ABCU Course Planner using an AVL tree

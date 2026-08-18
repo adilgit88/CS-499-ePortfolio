@@ -1,52 +1,350 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Professional Self-Assessment | Adil Patel CS 499</title><link rel="stylesheet" href="../styles.css"></head><body><header><nav class="nav"><div class="brand">Adil Patel · CS 499</div><a href="../index.html">Home</a><a href="../self-assessment/index.html">Self-Assessment</a><a href="../code-review/index.html">Code Review</a><a href="../software-design-engineering/index.html">Software Design</a><a href="../algorithms-data-structures/index.html">Algorithms</a><a href="../databases/index.html">Databases</a></nav></header><main style="padding-top:34px"><article class="content"><h1>Professional Self-Assessment</h1>
-<p><strong>Adil Patel</strong></p>
-<p>Southern New Hampshire University</p>
-<p>CS 499: Computer Science Capstone</p>
-<h2>Introduction</h2>
-<p>Completing the Computer Science program at Southern New Hampshire University changed the way I approach technology and problem solving. When I began the program, much of my attention was focused on learning how to write code that produced the correct result. As I progressed, I learned that professional software development requires more than functional code. A strong computing solution also needs to be maintainable, secure, efficient, understandable, testable, and appropriate for the people who will use or support it.</p>
-<p>Developing this ePortfolio made that growth especially visible. Returning to earlier projects allowed me to compare the decisions I made when I first learned a concept with the decisions I would make now. Instead of replacing earlier projects with completely new work, I improved them using the skills I developed throughout the program. The difference can be seen directly in the structure, quality, security, performance, and testing of the enhanced artifacts.</p>
-<p>My professional interests are centered on software engineering and cybersecurity. I enjoy building practical applications, but I also want to understand how software, data, users, and systems can be protected. The program helped me see that these areas are closely connected. Security should influence architecture, data handling, input validation, authentication, error handling, testing, and other design decisions from the beginning.</p>
-<h2>Developing as a Computer Science Professional</h2>
-<p>One of the most important lessons I gained is that computer science is not only about knowing a programming language. Languages, frameworks, databases, and tools change, but the ability to analyze a problem, break it into smaller parts, evaluate solutions, and explain technical decisions continues to be valuable.</p>
-<p>CS 300 introduced data structures and algorithms through the ABCU Course Planner and helped me understand insertion, traversal, search, and complexity. CS 340 introduced Python and MongoDB through the Grazioso Salvare project and expanded my understanding of persistent data and CRUD operations. CS 360 introduced Android development, interface state, local storage, and mobile hardware features. CS 465 gave me full-stack experience across client, server, APIs, authentication, and persistent data. CS 305 strengthened my understanding of secure software development, vulnerability analysis, dependencies, and secure communications. CS 370 introduced neural networks and reinforcement learning, where experimentation, training behavior, and performance measurement become part of the development process.</p>
-<p>Together, these experiences gave me a much broader view of computer science than I had when I entered the program.</p>
-<h2>Collaboration and Working With Others</h2>
-<p>Computer science work rarely exists in isolation. Even when one developer writes most of the code, software normally has users, stakeholders, reviewers, administrators, or other developers who depend on it.</p>
-<p>The CS 499 code review required me to explain existing code and planned improvements as if I were speaking to peers or a manager. That experience showed me that understanding my own code is not enough. I also need to explain why a design was selected, where weaknesses exist, what trade-offs are involved, and what another developer should know before making changes.</p>
-<p>Instructor feedback throughout the capstone provided another form of collaboration. Feedback on my algorithms enhancement emphasized that functional correctness is only one measure of software quality. Performance, maintainability, observability, and other qualities also matter. That reinforced the value of performance comparisons, metrics, and automated tests.</p>
-<p>I have also learned that collaboration is easier when software itself is designed for collaboration. Modular components, clear method names, documentation, version control, automated tests, and predictable interfaces reduce the amount of knowledge another developer needs before working with a project.</p>
-<h2>Communicating With Stakeholders</h2>
-<p>Communication became more important to me as I progressed through the program. A technically correct solution can still fail if the developer cannot explain what it does or if it does not address the needs of the intended user.</p>
-<p>Programming assignments required readable code and documentation. Written reports required me to explain technical decisions without relying entirely on source code. Presentations and the CS 499 code review required oral communication. User-facing applications required thinking about visual communication and interface design.</p>
-<p>My full-stack and mobile coursework also taught me the difference between what a developer sees and what a user sees. A developer may think about API requests, database objects, classes, and state. A user expects understandable screens, useful feedback, clear navigation, and predictable behavior.</p>
-<p>The ePortfolio itself is another communication exercise. Rather than presenting unexplained source files, I am presenting the original work, the enhanced work, the reasons for the changes, measurable results, and what I learned from the process.</p>
-<h2>Data Structures and Algorithms</h2>
-<p>My understanding of algorithms developed considerably during the program. Earlier, I tended to judge an algorithm mainly by whether it produced the correct output. CS 300 introduced complexity analysis and showed that two solutions can produce the same result while behaving very differently as data grows or arrives in a different order.</p>
-<p>The course planner artifact demonstrates that growth. The original implementation used an ordinary BST. During the capstone I enhanced it into an AVL tree that automatically maintains balance. When 1,000 sorted records were inserted during testing, the unbalanced BST reached a height of 1,000 while the AVL tree remained at a height of 10.</p>
-<p>I also learned that the most advanced data structure is not automatically the best one. Every structure introduces trade-offs involving memory, implementation complexity, expected operations, and performance. The important skill is selecting a solution that matches the real requirements.</p>
-<h2>Software Engineering</h2>
-<p>The program changed how I think about software engineering. When I first began programming, I often thought of a program as one unit: write the code, run it, and verify the output. Later coursework taught me to think in components and responsibilities.</p>
-<p>The software design enhancement demonstrates that transition. The original CS 300 project placed most of the program inside one source file and relied on raw pointer ownership. During CS 499, I separated the data model, tree logic, CSV loading, user interface, and tests. I replaced manual ownership with <code>std::unique_ptr</code>, improved input handling, introduced structured loading results, and added automated tests.</p>
-<p>These improvements taught me that software design decisions affect future development. A class that prints errors directly to the console is harder to reuse. A function with a clear return contract is easier to test. A component with one responsibility is easier to change without affecting unrelated behavior.</p>
-<h2>Database Development</h2>
-<p>Database coursework helped me understand that data is not simply something an application stores. The structure, validation, security, performance, and lifecycle of data affect the quality of the entire system.</p>
-<p>My CS 340 work introduced MongoDB and document-oriented databases. During the capstone, I revisited the AnimalShelter class from a more experienced perspective. I removed hard-coded credentials, introduced environment-based configuration, added connection verification, strengthened validation, protected important fields, added indexes based on expected query patterns, improved operation results, added structured logging, and introduced explicit client cleanup. I also added 23 automated tests.</p>
-<p>This work helped me understand database trade-offs. MongoDB provides flexibility, but applications still need boundaries for data quality. Indexes improve reads but require storage and increase write costs. More detailed results require slightly more code but allow other parts of the application to make better decisions.</p>
-<h2>Developing a Security Mindset</h2>
-<p>Security became increasingly important to me throughout the program. CS 305 provided direct experience with secure coding concepts, vulnerability analysis, dependency checking, and protecting communications. It helped me understand that software security requires thinking about what could go wrong rather than testing only the expected path.</p>
-<p>That mindset became part of how I approached later projects. Input validation is not only about usability. It can prevent unexpected or malicious data from reaching sensitive parts of an application. Memory ownership is not only a software-quality concern. Unsafe memory handling can cause crashes or vulnerabilities. Database credentials are secrets and should not be stored directly in source code.</p>
-<p>My database enhancement demonstrates this mindset most directly. Hard-coded credentials were removed, destructive operations require meaningful filters, protected identifiers cannot be changed freely, raw MongoDB update operators are restricted, and failure conditions are tested.</p>
-<p>I understand that security is an ongoing process. New dependencies, features, configuration changes, and attack techniques can introduce risk over time. Professionally, I want security to remain part of how I evaluate every computing solution.</p>
-<h2>Professional Goals and Values</h2>
-<p>Completing the program helped clarify the kind of professional I want to become. I am interested in software engineering because I enjoy turning an idea or requirement into a working system. At the same time, I have a strong interest in cybersecurity and secure software because building a useful application also creates a responsibility to protect the people and information that depend on it.</p>
-<p>The values I want to carry into my professional work are reliability, continuous learning, security, clarity, and practical problem solving. I do not expect to know every technology before beginning a role. One of the most valuable abilities I developed during this degree is becoming comfortable learning unfamiliar tools and solving problems systematically.</p>
-<h2>How the ePortfolio Artifacts Fit Together</h2>
-<p>The three enhancements demonstrate different areas of computer science while showing a progression in how I approach computing problems.</p>
-<p>The first enhancement focuses on <strong>Software Design and Engineering</strong>. The ABCU Course Planner was reorganized from a single-file student project into a modular C++ application with safer memory ownership, improved interfaces, validation, and automated testing.</p>
-<p>The second enhancement builds on the same artifact from an <strong>Algorithms and Data Structures</strong> perspective. The ordinary BST was replaced with a self-balancing AVL tree. This demonstrates algorithm analysis, rotations, complexity trade-offs, structural testing, and measurable performance improvement.</p>
-<p>The third enhancement focuses on <strong>Databases</strong> through the CS 340 Grazioso Salvare AnimalShelter module. The CRUD layer was improved with secure configuration, stronger validation, indexing, structured results, logging, lifecycle management, and automated testing.</p>
-<p>Together, the artifacts demonstrate three connected levels of computing: how code is organized and maintained, how data is structured and processed efficiently, and how persistent data is accessed, protected, validated, and optimized. Security, testing, communication, and trade-off evaluation appear across all three rather than existing as isolated topics.</p>
-<h2>Conclusion</h2>
-<p>Looking back at my earlier work through this capstone made my progress easier to recognize. The original artifacts show where I started. The enhanced versions show that my standards have changed.</p>
-<p>I now ask more questions before considering software complete. Is the design understandable? Can another developer maintain it? How will the solution behave as the data grows? What happens when unexpected input is provided? How will failures be diagnosed? What data needs protection? How can I prove that the solution works instead of assuming that it does?</p>
-<p>Those questions represent the most important growth I experienced throughout the Computer Science program. My ePortfolio demonstrates technical abilities in software engineering, algorithms and data structures, databases, security, testing, and communication, but it also represents a change in how I think as a computer science professional.</p></article></main><footer>CS 499 Computer Science Capstone · Adil Patel · Southern New Hampshire University</footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Professional self-assessment introducing Adil Patel’s software engineering, algorithms, database, security, collaboration, and communication skills.">
+    <title>Professional Self-Assessment | Adil Patel</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header><nav class="nav" aria-label="Primary navigation"><div class="brand">Adil Patel · Computer Science ePortfolio</div><a href="../index.html">Home</a><a href="../self-assessment/index.html" aria-current="page">Self-Assessment</a><a href="../code-review/index.html">Code Review</a><a href="../software-design-engineering/index.html">Software Design</a><a href="../algorithms-data-structures/index.html">Algorithms</a><a href="../databases/index.html">Databases</a></nav></header>
+    <main id="main-content" class="page-main"><article class="content"><h1 id="professional-self-assessment">Professional Self-Assessment</h1>
+<p><strong>Adil Patel</strong><br />
+Computer Science Capstone</p>
+<h2 id="introduction">Introduction</h2>
+<p>Completing my Computer Science degree has changed the way I approach
+software development and problem solving.</p>
+<p>When I began the program, my main goal was usually simple: write code
+that works and produces the correct result. As I moved through more
+advanced projects, I learned that working software is only one part of
+professional development.</p>
+<p>Software also needs to be understandable, maintainable, secure,
+efficient, testable, and useful to the people who depend on it.</p>
+<p>Building this ePortfolio gave me an opportunity to see that growth
+clearly. Instead of only presenting newer projects, I returned to
+applications I created earlier in my education and evaluated them using
+the skills and standards I have developed since then.</p>
+<p>That process showed me how much my thinking has changed.</p>
+<p>Today, when I evaluate a solution, I think about more than whether
+the program runs. I think about how the code is organized, how data is
+protected, how performance may change as the application grows, how
+failures are handled, how another developer will understand the project,
+and how I can prove through testing that the software behaves
+correctly.</p>
+<p>My professional interests are in software engineering and
+cybersecurity. I enjoy building practical applications, but I also want
+to understand how those applications can be made safer, more reliable,
+and easier to maintain.</p>
+<p>These interests have shaped the way I approach the work presented in
+this portfolio.</p>
+<h2 id="developing-as-a-computer-science-professional">Developing as a
+Computer Science Professional</h2>
+<p>My coursework exposed me to many different areas of computer
+science.</p>
+<p>I worked with C++, Python, JavaScript, databases, mobile
+applications, full-stack web development, secure software development,
+and artificial intelligence.</p>
+<p>Each area required me to think about problems differently.</p>
+<p>My Data Structures and Algorithms coursework taught me that the way
+information is organized can have a major effect on performance. I
+learned how structures such as trees and hash-based collections support
+different types of operations and why complexity matters when the size
+or order of the data changes.</p>
+<p>Database programming taught me how applications communicate with
+persistent data and how decisions involving queries, indexes,
+validation, and database structure affect the complete application.</p>
+<p>Mobile development required me to think about user interaction, local
+data, application state, and device features.</p>
+<p>Full-stack web development helped me understand how user interfaces,
+APIs, authentication, server-side logic, and databases work together as
+parts of one system.</p>
+<p>Secure software development taught me to look beyond expected
+behavior and ask what could go wrong. I gained experience thinking about
+software vulnerabilities, dependency risks, secure communication, and
+the importance of protecting data and resources throughout the
+development process.</p>
+<p>My work with artificial intelligence and reinforcement learning added
+another perspective. Instead of only working with programs that follow a
+fixed set of instructions, I had to evaluate learning behavior,
+performance, experimentation, and results.</p>
+<p>Together, these experiences gave me a well-rounded technical
+foundation and helped me understand that professional software
+development involves many connected areas.</p>
+<h2 id="collaboration-and-working-with-others">Collaboration and Working
+With Others</h2>
+<p>Software development is rarely an individual activity, even when one
+person writes most of the code.</p>
+<p>Applications have users, stakeholders, developers, reviewers,
+administrators, and other people who depend on the system.</p>
+<p>One area where I have grown is understanding that code itself should
+support collaboration.</p>
+<p>If a project contains one large file with unclear responsibilities,
+another developer has to spend more time understanding the entire
+application before making even a small change.</p>
+<p>A modular project with clear naming, documentation, predictable
+interfaces, and automated tests is much easier for another person to
+work with.</p>
+<p>My capstone code review strengthened this skill by requiring me to
+explain existing code, identify weaknesses, discuss design choices, and
+communicate my enhancement plans as if I were speaking to another
+developer or manager.</p>
+<p>Instructor feedback throughout the capstone also helped me think more
+carefully about professional software quality.</p>
+<p>For example, one important lesson was that passing functional tests
+is not the only goal. Performance, maintainability, observability,
+security, and other qualities also affect whether software is ready for
+professional use.</p>
+<p>I expect collaboration to remain an area of continuous growth in my
+career. Working on larger development teams will require skills such as
+code review, issue tracking, technical documentation, version control,
+communicating disagreements, and balancing the needs of different
+stakeholders.</p>
+<p>The foundation I have developed gives me a strong starting point for
+those environments.</p>
+<h2 id="communicating-with-stakeholders">Communicating With
+Stakeholders</h2>
+<p>Technical ability is important, but software developers also need to
+communicate clearly.</p>
+<p>A developer may understand classes, database objects, algorithms,
+APIs, and application state. A stakeholder may care more about whether
+the application solves the correct problem, protects important
+information, and gives users clear results.</p>
+<p>The ability to communicate between those perspectives is an important
+professional skill.</p>
+<p>Throughout my education, I practiced technical communication through
+written reports, project documentation, presentations, code reviews,
+user interfaces, and software demonstrations.</p>
+<p>The capstone brought those skills together.</p>
+<p>My code review requires me to explain technical problems in spoken
+language.</p>
+<p>My narratives explain the reasoning behind each enhancement.</p>
+<p>My README files are designed to help another developer understand how
+to build, run, and test the software.</p>
+<p>My ePortfolio presents the work in a way that allows an employer to
+understand the purpose and value of the projects without reading every
+source file.</p>
+<p>I have also learned that technical design can affect communication
+with users.</p>
+<p>For example, a database update that reports only whether it succeeded
+may not provide enough information for the user interface.</p>
+<p>If the database reports both how many records matched and how many
+were actually modified, the application can give the user a much clearer
+result.</p>
+<p>Small technical choices like this can have a direct effect on the
+user's experience.</p>
+<h2 id="data-structures-and-algorithms">Data Structures and
+Algorithms</h2>
+<p>My understanding of algorithms has changed significantly.</p>
+<p>Earlier in my education, I often evaluated a solution by asking
+whether it produced the correct answer.</p>
+<p>I now understand that correctness is only one part of evaluating an
+algorithm.</p>
+<p>A solution can return the correct result and still perform poorly
+when the data grows or arrives in an unexpected order.</p>
+<p>The Course Planner artifact in this portfolio demonstrates that
+growth.</p>
+<p>The original application used an ordinary binary search tree.</p>
+<p>The tree worked correctly, but its shape depended on insertion order.
+Sorted input could create a one-sided tree, causing search and insertion
+to fall to linear performance in the worst case.</p>
+<p>For my enhancement, I replaced the ordinary binary search tree with a
+self-balancing AVL tree.</p>
+<p>The AVL implementation maintains its balance using node heights and
+rotations.</p>
+<p>I did not only implement the algorithm. I also tested its behavior
+under difficult input conditions.</p>
+<p>When 1,000 sorted values were inserted, the unbalanced binary search
+tree reached a height of 1,000.</p>
+<p>The AVL tree reached a height of only 10.</p>
+<p>That comparison made the importance of algorithm analysis very
+clear.</p>
+<p>It showed me that choosing a data structure should be based on
+application requirements, expected operations, performance guarantees,
+memory costs, and implementation complexity rather than simply choosing
+the structure that is easiest to write.</p>
+<h2 id="software-engineering">Software Engineering</h2>
+<p>Software engineering has become one of the strongest areas of growth
+for me.</p>
+<p>When I first started programming, I often treated an application as
+one complete unit.</p>
+<p>I would write the code, run it, fix errors, and consider the project
+finished once the expected output appeared.</p>
+<p>More advanced projects taught me to think in terms of components,
+responsibilities, interfaces, testing, maintainability, and future
+change.</p>
+<p>My Course Planner enhancement demonstrates this shift.</p>
+<p>The original version placed most of the application inside one source
+file and relied on raw pointers for memory ownership.</p>
+<p>I reorganized the application into focused components for the course
+model, tree logic, data loading, user interaction, and testing.</p>
+<p>I also replaced owning raw pointers with
+<code>std::unique_ptr</code>, improved input handling, introduced
+structured loading results, and added automated tests.</p>
+<p>These changes did not dramatically change what the user sees.</p>
+<p>The application still loads courses, displays the catalog, and
+searches for course information.</p>
+<p>The major improvement is how the program is built internally.</p>
+<p>That is an important lesson I have taken from my education.</p>
+<p>A professional enhancement does not always need to introduce a new
+visible feature.</p>
+<p>Improving maintainability, reliability, testing, security, and
+clarity can provide just as much value.</p>
+<h2 id="database-development">Database Development</h2>
+<p>My database experience taught me to think of data as a central part
+of the application rather than simply something stored in the
+background.</p>
+<p>The database layer affects security, performance, reliability, data
+quality, and the information available to the rest of the software.</p>
+<p>The AnimalShelter artifact in this portfolio originally provided
+basic MongoDB create, read, update, and delete operations.</p>
+<p>It worked, but it also contained several weaknesses that are common
+in small learning projects.</p>
+<p>Credentials were stored directly in the source code.</p>
+<p>Connection problems were not checked immediately.</p>
+<p>Validation was limited.</p>
+<p>The class did not clearly manage the lifetime of the database
+connection.</p>
+<p>Indexes were not part of the design.</p>
+<p>Database results sometimes provided only limited information.</p>
+<p>For my enhancement, I addressed these issues through
+environment-based configuration, stronger validation, connection
+verification, indexing, structured logging, clearer database results,
+resource cleanup, and automated testing.</p>
+<p>I also added a suite of 23 tests.</p>
+<p>One of the biggest lessons from this work was that database design
+involves trade-offs.</p>
+<p>MongoDB provides flexible documents, but an application still needs
+rules to protect data quality.</p>
+<p>Indexes can improve read performance, but they also require storage
+and increase the cost of writes.</p>
+<p>Detailed result objects require slightly more design work, but they
+allow the rest of the application to make better decisions.</p>
+<p>These trade-offs are part of building a database solution that
+supports the complete application.</p>
+<h2 id="developing-a-security-mindset">Developing a Security
+Mindset</h2>
+<p>Security is an area I want to continue developing professionally.</p>
+<p>My secure software development coursework taught me that security
+should not be treated as something added after the application is
+completed.</p>
+<p>Security decisions exist throughout the software.</p>
+<p>They appear in authentication, configuration, input validation,
+dependency management, memory ownership, database access, error
+handling, logging, and data protection.</p>
+<p>That mindset influenced the enhancements in this portfolio.</p>
+<p>In the C++ application, safer memory ownership reduces the risk
+associated with incorrect manual memory management.</p>
+<p>Improved validation helps prevent unexpected data from moving through
+the program.</p>
+<p>The database artifact provides even stronger examples.</p>
+<p>Hard-coded credentials were removed from the source code.</p>
+<p>Database configuration was moved to environment variables.</p>
+<p>Empty update and delete filters are rejected.</p>
+<p>Protected fields have stronger rules.</p>
+<p>Raw update operators are restricted at the class boundary.</p>
+<p>Sensitive information is not intentionally placed in log
+messages.</p>
+<p>Failure conditions are also included in automated testing.</p>
+<p>These improvements reflect an important change in the way I approach
+software.</p>
+<p>I do not only ask whether the normal path works.</p>
+<p>I also ask what happens when input is incorrect, a service is
+unavailable, a developer makes a mistake, or someone attempts to use the
+system in an unexpected way.</p>
+<p>That way of thinking is one of the skills I want to continue
+strengthening throughout my career.</p>
+<h2 id="professional-goals-and-values">Professional Goals and
+Values</h2>
+<p>My education helped clarify the kind of developer I want to
+become.</p>
+<p>I am interested in software engineering because I enjoy taking an
+idea or requirement and turning it into a working application.</p>
+<p>I am also interested in cybersecurity because useful software creates
+a responsibility to protect the people, systems, and information that
+depend on it.</p>
+<p>The professional values I want to bring to my work are reliability,
+security, clarity, responsibility, and continuous learning.</p>
+<p>I understand that entering the technology field does not mean I will
+already know every language, framework, or tool an employer uses.</p>
+<p>Technology changes too quickly for that.</p>
+<p>What I have developed is the ability to learn unfamiliar
+technologies, break problems into smaller parts, research solutions,
+test my assumptions, and continue working through technical problems
+until I understand them.</p>
+<p>During my education, I worked across several different development
+environments and programming languages.</p>
+<p>Moving between those environments helped me become more comfortable
+learning new tools instead of depending on one specific technology.</p>
+<p>That adaptability is something I expect to rely on throughout my
+career.</p>
+<h2 id="how-the-portfolio-fits-together">How the Portfolio Fits
+Together</h2>
+<p>The artifacts in this portfolio demonstrate different areas of
+computer science, but they also support one larger story about my
+development as a software professional.</p>
+<p>The first enhancement focuses on <strong>software design and
+engineering</strong>.</p>
+<p>The original Course Planner was reorganized from a single-file C++
+application into a more modular structure with clearer responsibilities,
+safer memory ownership, improved validation, reusable interfaces, and
+automated tests.</p>
+<p>The second enhancement examines the same application from an
+<strong>algorithms and data structures</strong> perspective.</p>
+<p>The ordinary binary search tree was replaced with a self-balancing
+AVL tree.</p>
+<p>This enhancement demonstrates algorithm analysis, tree balancing,
+rotations, complexity, testing, and measurable performance
+improvement.</p>
+<p>Using the same application for these two categories demonstrates an
+important point.</p>
+<p>Clean software design does not automatically guarantee an efficient
+algorithm.</p>
+<p>An efficient algorithm also does not automatically create
+maintainable software.</p>
+<p>Both areas need to be considered.</p>
+<p>The third enhancement focuses on <strong>databases</strong>.</p>
+<p>The AnimalShelter MongoDB data-access layer was improved through
+secure configuration, stronger validation, indexes, structured results,
+logging, lifecycle management, and automated testing.</p>
+<p>Together, the three enhancements demonstrate how different parts of
+computer science connect.</p>
+<p>Software engineering affects how the application is organized and
+maintained.</p>
+<p>Algorithms affect how efficiently information can be processed.</p>
+<p>Databases affect how persistent information is stored, retrieved,
+protected, and managed.</p>
+<p>Security, testing, communication, and trade-off analysis appear
+throughout all three areas.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Looking back at my earlier work through this capstone made my
+progress easier to recognize.</p>
+<p>The original projects are valuable because they show the foundation I
+developed earlier in my education.</p>
+<p>The enhanced projects show how my standards have changed.</p>
+<p>Today, before I consider software complete, I ask more questions.</p>
+<p>Is the design understandable?</p>
+<p>Can another developer maintain it?</p>
+<p>How will the solution behave as the amount of data increases?</p>
+<p>What happens when unexpected input is provided?</p>
+<p>How are important resources protected?</p>
+<p>How will failures be diagnosed?</p>
+<p>Can I test the behavior repeatedly?</p>
+<p>Can I explain the technical decisions to someone who did not build
+the system?</p>
+<p>Those questions represent the biggest change in how I think as a
+computer science professional.</p>
+<p>This ePortfolio demonstrates my experience with software engineering,
+algorithms and data structures, databases, security, testing, and
+professional communication.</p>
+<p>More importantly, it demonstrates that I understand the difference
+between simply making software work and building software that is
+prepared to be used, reviewed, maintained, and improved by others.</p>
+<p>I am completing my Computer Science degree with a stronger technical
+foundation, a clearer understanding of professional software
+development, and the ability to continue learning as I begin the next
+stage of my career.</p></article></main>
+    <footer>Computer Science Capstone · Adil Patel · Southern New Hampshire University · 2026</footer>
+</body>
+</html>

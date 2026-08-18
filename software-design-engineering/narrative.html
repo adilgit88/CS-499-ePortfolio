@@ -1,33 +1,252 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Software Design Narrative | Adil Patel CS 499</title><link rel="stylesheet" href="../styles.css"></head><body><header><nav class="nav"><div class="brand">Adil Patel · CS 499</div><a href="../index.html">Home</a><a href="../self-assessment/index.html">Self-Assessment</a><a href="../code-review/index.html">Code Review</a><a href="../software-design-engineering/index.html">Software Design</a><a href="../algorithms-data-structures/index.html">Algorithms</a><a href="../databases/index.html">Databases</a></nav></header><main style="padding-top:34px"><article class="content"><h1>CS 499 Artifact Narrative: Software Design and Engineering</h1>
-<p><strong>Adil Patel</strong></p>
-<p>Southern New Hampshire University</p>
-<p>CS 499: Computer Science Capstone</p>
-<p><strong>Artifact:</strong> CS 300 ABCU Course Planner</p>
-<p><strong>Original Artifact:</strong> C++ Course Planner Using a Binary Search Tree</p>
-<p><strong>Enhancement Focus:</strong> Software Design, Modularity, Memory Safety, Error Handling, and Testing</p>
-<p><strong>Enhancement Completed:</strong> July 2026</p>
-<h2>Artifact Description</h2>
-<p>The artifact I selected for this enhancement is the ABCU Course Planner that I originally created in CS 300, Data Structures and Algorithms. The program was developed as a command-line advising tool for a fictional university. It reads course information from a CSV file, stores course numbers, course names, and prerequisite information in a binary search tree, and allows the user to print the complete course list in alphanumeric order or search for an individual course and view its prerequisites.</p>
-<p>The original artifact successfully demonstrated the fundamental concepts I was learning in CS 300, including binary search tree construction, insertion, search, and in-order traversal. However, it also reflected my level of experience at the time. The complete program was contained in one large source file, memory was managed with raw pointers, program components were tightly coupled, input handling was limited, and the program reset its tree by manually calling a destructor and reconstructing the object with placement new.</p>
-<p>For my CS 499 software design and engineering enhancement, I preserved the original functionality while reorganizing the program into a more modular, maintainable, and testable application. The enhancement focused on software structure, memory ownership, input validation, error handling, reusable interfaces, and automated testing rather than adding unnecessary features.</p>
-<h2>Justification for Inclusion</h2>
-<p>I selected this artifact because it clearly demonstrates growth in my approach to software development. The original program worked and met the requirements of CS 300, but the enhanced version reflects what I have learned about designing software that other developers could realistically understand, maintain, test, and extend.</p>
-<p>One of the most important improvements was separating responsibilities that had previously existed in one source file. The enhanced application is divided into focused components: <code>Course.h</code> defines the data model, <code>BinarySearchTree.h/.cpp</code> manage the tree, <code>CourseLoader.h/.cpp</code> handle CSV parsing and validation, <code>main.cpp</code> manages the console interface, and automated tests verify important behaviors. This separation makes each responsibility easier to understand and reduces unnecessary coupling.</p>
-<p>I also replaced raw owning pointers with <code>std::unique_ptr</code>. This applies RAII-based ownership and reduces the risk of memory leaks, dangling pointers, and incorrect cleanup. The unsafe destructor-and-placement-new reload pattern from the original version was replaced with a dedicated <code>clear()</code> method.</p>
-<p>The CSV-loading process was redesigned so it returns a structured <code>LoadResult</code> instead of printing directly from deep inside the loading logic. The result includes success information, loaded and skipped record counts, and validation messages. This improves reuse and makes the component easier to test.</p>
-<p>Input handling was improved with <code>std::getline()</code> so file paths containing spaces can be read correctly. The global <code>using namespace std</code> statement was removed, methods were made const-correct where appropriate, and malformed CSV records and invalid prerequisite references are detected rather than silently accepted.</p>
-<p>Finally, I added automated tests for insertion, duplicate detection, sorted traversal, safe clearing, valid CSV loading, malformed rows, missing files, invalid prerequisites, and reload behavior. The original artifact relied mainly on manual testing. The enhanced artifact provides repeatable evidence that its major behaviors continue to work after refactoring.</p>
-<h2>Course Outcome Alignment</h2>
-<p>This enhancement most strongly supports the fourth program outcome by applying well-founded computing practices to improve a real solution. Modular architecture, <code>std::unique_ptr</code>, RAII, structured result objects, CMake, and automated tests make the application safer and easier to maintain.</p>
-<p>The enhancement also supports the fifth outcome through safer memory ownership and stronger input validation. I do not consider this artifact my strongest cybersecurity example, but removing fragile memory-management patterns and validating external input are part of a security mindset.</p>
-<p>The third outcome is supported through design trade-offs. I considered implementing a self-balancing tree during this milestone but intentionally kept the algorithm unchanged so this enhancement could remain focused on software engineering. The tree&#x27;s algorithmic weakness was then addressed directly in the Algorithms and Data Structures enhancement.</p>
-<p>The second outcome is supported by clearer interfaces, documentation, naming, build instructions, and test results. The first outcome is supported more indirectly because modular code, documentation, and repeatable tests make collaboration easier for other developers.</p>
-<h2>Reflection on the Enhancement Process</h2>
-<p>The most important lesson I learned was how much good C++ engineering depends on understanding ownership. When I created the original artifact, I focused mainly on whether insert, search, and traversal worked. Rewriting the tree with <code>std::unique_ptr</code> forced me to think about which object owns each node and when that ownership should end.</p>
-<p>I also learned the value of returning structured information instead of printing results directly from application logic. At first, creating a <code>LoadResult</code> structure seemed more complicated than printing warnings. Once I began writing automated tests, the advantage became clear because tests could verify exact values instead of trying to capture console output.</p>
-<p>Another challenge was deciding how much to change. I considered a self-balancing tree, expanded logging, and other additions, but those changes would have distracted from the software engineering goals. Keeping the scope focused allowed me to make a smaller set of improvements and support each one with a clear reason.</p>
-<h2>Incorporating Instructor Feedback</h2>
-<p>My instructor said the code changes were strong and specifically commented positively on avoiding over-engineering. The instructor also noted that testing often leads to better refactoring and better code. That feedback reinforced what I experienced during the enhancement: testing did more than verify the program. It influenced how I designed the loader, structured result objects, and separated responsibilities.</p>
-<p>For the final ePortfolio, I kept the enhancement focused instead of adding extra features only to make the project appear more complex.</p>
-<h2>Overall Reflection</h2>
-<p>The original artifact shows that I could implement a binary search tree and satisfy functional requirements. The enhanced artifact shows that I now consider how software is structured, how resources are owned, how input is validated, how components can be reused, and how behavior can be verified through automated testing. The user-facing functionality remains familiar, but the internal design is significantly stronger and better suited for professional review.</p></article></main><footer>CS 499 Computer Science Capstone · Adil Patel · Southern New Hampshire University</footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Narrative explaining the software design and engineering enhancement, professional skills demonstrated, feedback, and reflection.">
+    <title>Software Design and Engineering Narrative | Adil Patel</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header><nav class="nav" aria-label="Primary navigation"><div class="brand">Adil Patel · Computer Science ePortfolio</div><a href="../index.html">Home</a><a href="../self-assessment/index.html">Self-Assessment</a><a href="../code-review/index.html">Code Review</a><a href="../software-design-engineering/index.html" aria-current="page">Software Design</a><a href="../algorithms-data-structures/index.html">Algorithms</a><a href="../databases/index.html">Databases</a></nav></header>
+    <main id="main-content" class="page-main"><article class="content"><h1 id="software-design-and-engineering-narrative">Software Design and
+Engineering Narrative</h1>
+<p><strong>Adil Patel</strong><br />
+Computer Science Capstone</p>
+<h2 id="artifact-description">Artifact Description</h2>
+<p>The artifact I selected for this enhancement is the <strong>ABCU
+Course Planner</strong>, a C++ application I originally created in my
+Data Structures and Algorithms coursework.</p>
+<p>The program was designed as a command-line advising tool for a
+fictional university. It reads course information from a CSV file,
+stores each course number, course name, and prerequisite list in a
+binary search tree, and allows a user to print the complete course
+catalog in alphanumeric order or search for an individual course and
+view its prerequisites.</p>
+<p>The original application worked correctly and demonstrated my
+understanding of binary search trees, insertion, searching, and in-order
+traversal. However, when I reviewed the project later, I could see
+several areas where the software design could be improved.</p>
+<p>Most of the application was contained in one large source file.
+Memory was managed with raw owning pointers. The program also reset its
+tree by manually calling a destructor and reconstructing the object with
+placement new. Error reporting was closely tied to console output, and
+the application did not include repeatable automated tests.</p>
+<p>For this enhancement, I kept the original functionality while
+reorganizing the program into a more modular, maintainable, and testable
+application. My focus was not on adding unnecessary features. Instead, I
+concentrated on software structure, memory ownership, reusable
+interfaces, input handling, validation, and testing.</p>
+<h2 id="why-i-selected-this-artifact">Why I Selected This Artifact</h2>
+<p>I selected this artifact because it shows a clear difference between
+writing code that works and engineering software that is easier to
+maintain and extend.</p>
+<p>When I first created the application, my main goal was to correctly
+implement the binary search tree and meet the functional requirements.
+That was appropriate for where I was in my development at the time.</p>
+<p>Revisiting the same project later allowed me to evaluate it with a
+different set of priorities.</p>
+<p>I began asking questions such as:</p>
+<p>How easy would this code be for another developer to understand?</p>
+<p>Could one part of the program be changed without affecting unrelated
+code?</p>
+<p>Is memory ownership clear?</p>
+<p>Can important behavior be tested automatically?</p>
+<p>Could the loading logic be reused by another type of interface?</p>
+<p>Those questions became the basis for the enhancement.</p>
+<h2 id="separation-of-responsibilities">Separation of
+Responsibilities</h2>
+<p>One of the largest improvements was separating the original
+single-file application into focused components.</p>
+<p>The enhanced project includes a <code>Course.h</code> file for the
+course data model, separate header and source files for the binary
+search tree, separate files for CSV loading and validation, and a
+smaller <code>main.cpp</code> responsible primarily for user
+interaction.</p>
+<p>The course model is simple enough that it only requires
+<code>Course.h</code>; there is no unnecessary <code>Course.cpp</code>
+file.</p>
+<p>This structure gives each part of the application a clear
+responsibility.</p>
+<p>The tree is responsible for storing and searching course records.</p>
+<p>The loader is responsible for reading and validating external
+data.</p>
+<p>The user interface is responsible for interacting with the user.</p>
+<p>This makes the code easier to navigate and lowers the risk that a
+change in one area will unintentionally affect another.</p>
+<p>It also makes the application easier for another developer to review
+because the purpose of each file is immediately clearer.</p>
+<h2 id="safer-memory-ownership">Safer Memory Ownership</h2>
+<p>The original tree relied on raw owning pointers and manual
+cleanup.</p>
+<p>For the enhanced version, I replaced those owning pointers with
+<code>std::unique_ptr</code>.</p>
+<p>This was an important improvement because ownership is now expressed
+directly in the code. A node has a clear owner, and memory is released
+automatically when that ownership ends.</p>
+<p>Using <code>std::unique_ptr</code> reduces the amount of manual
+memory management required and helps prevent problems such as memory
+leaks and incorrect cleanup.</p>
+<p>This change also reflects a broader lesson I learned about modern C++
+development. Memory management should not only work; it should be
+designed so that ownership is easy to understand.</p>
+<h2 id="improving-tree-reloading">Improving Tree Reloading</h2>
+<p>The original program reset its binary search tree by manually calling
+the destructor and then using placement new to reconstruct the
+object.</p>
+<p>Although the approach worked for the original assignment, it was more
+complicated than necessary and made the lifetime of the object harder to
+reason about.</p>
+<p>I replaced this behavior with a dedicated <code>clear()</code>
+method.</p>
+<p>The enhanced program can now remove the existing tree contents
+without manually destroying and recreating the entire object.</p>
+<p>This is a relatively small change in terms of code size, but it
+significantly improves clarity and reduces the risk associated with
+manually controlling object lifetime.</p>
+<h2 id="structured-loading-results">Structured Loading Results</h2>
+<p>The CSV-loading logic was also redesigned.</p>
+<p>In the original version, the loader directly printed messages to the
+console when a file contained invalid data or other problems.</p>
+<p>This tightly connected the loading logic to the command-line
+interface.</p>
+<p>In the enhanced version, the loader returns a structured
+<code>LoadResult</code>.</p>
+<p>This result can report whether the operation succeeded, how many
+records were loaded, how many were skipped, and what validation problems
+occurred.</p>
+<p>The user interface can then decide how that information should be
+presented.</p>
+<p>This makes the loader more reusable. The same loading logic could
+later support a graphical interface, web service, or another type of
+application without being rewritten simply because the method of
+displaying information changed.</p>
+<p>It also improves testability because automated tests can directly
+inspect the returned values rather than trying to capture and interpret
+console output.</p>
+<h2 id="input-handling-and-validation">Input Handling and
+Validation</h2>
+<p>I also improved several smaller areas that affect reliability.</p>
+<p>The original program used standard <code>cin</code> input for the
+file path, which could cause problems when a path contained spaces.</p>
+<p>The enhanced application uses <code>std::getline()</code> so the
+complete path can be read correctly.</p>
+<p>I also removed the global <code>using namespace std</code>, improved
+const-correctness where appropriate, and strengthened validation for
+malformed CSV rows and invalid prerequisite references.</p>
+<p>These are not large features, but together they make the application
+more predictable and easier to maintain.</p>
+<h2 id="automated-testing">Automated Testing</h2>
+<p>The original artifact did not contain a repeatable automated test
+suite.</p>
+<p>Most verification was performed manually by running the program and
+checking its output.</p>
+<p>For the enhanced version, I added automated tests covering important
+behaviors such as course insertion, duplicate detection, sorted
+traversal, clearing the tree, valid CSV loading, malformed records,
+missing files, invalid prerequisites, and reload behavior.</p>
+<p>Testing became more than a final check.</p>
+<p>It influenced the way I designed the application.</p>
+<p>For example, returning a structured <code>LoadResult</code> made the
+loading logic much easier to test than printing messages directly from
+inside the loader.</p>
+<p>This helped me understand that testability is part of software design
+rather than something that should be added only after the implementation
+is finished.</p>
+<h2 id="professional-skills-demonstrated">Professional Skills
+Demonstrated</h2>
+<p>This enhancement demonstrates several skills that are important in
+professional software development.</p>
+<p>The modular structure improves maintainability and makes
+collaboration easier.</p>
+<p>Modern C++ ownership reduces the risk associated with manual memory
+management.</p>
+<p>Clear interfaces make components easier to reuse.</p>
+<p>Validation improves reliability when working with external data.</p>
+<p>Automated testing provides repeatable evidence that important
+functionality still behaves correctly after changes are made.</p>
+<p>The enhancement also demonstrates restraint.</p>
+<p>I considered adding several additional features, including a
+self-balancing tree during this stage. I decided not to combine every
+possible improvement into one enhancement.</p>
+<p>Instead, I kept this work focused on software engineering and
+addressed the tree's algorithmic performance separately in my Algorithms
+and Data Structures enhancement.</p>
+<p>That decision made the purpose of each enhancement easier to explain
+and evaluate.</p>
+<h2 id="course-outcome-alignment">Course Outcome Alignment</h2>
+<p>This artifact provides strong evidence for the program outcome
+focused on using well-founded computing techniques and tools to create
+solutions that deliver practical value.</p>
+<p>The modular architecture, <code>std::unique_ptr</code>, structured
+loading results, CMake configuration, and automated tests are all
+examples of established software engineering practices applied to
+improve an existing application.</p>
+<p>The artifact also supports the security-focused outcome.</p>
+<p>This is not my strongest security example, but replacing fragile
+manual memory ownership and improving validation reduces the opportunity
+for memory-related failures and unexpected behavior.</p>
+<p>The design also supports the outcome related to evaluating computing
+solutions and trade-offs. I deliberately chose not to introduce the AVL
+tree during this enhancement because the purpose here was to improve
+software structure and engineering quality. The algorithmic limitation
+of the ordinary binary search tree was addressed separately and measured
+in the next enhancement.</p>
+<p>Professional communication is demonstrated through clearer code
+organization, documentation, naming, testing information, and this
+narrative.</p>
+<p>The work also supports collaboration because another developer can
+more easily understand individual components, make focused changes, and
+use the automated tests to verify that existing behavior has not been
+broken.</p>
+<h2 id="incorporating-feedback">Incorporating Feedback</h2>
+<p>The feedback I received on this enhancement reinforced the direction
+of the work.</p>
+<p>My instructor noted that the code changes were strong and
+specifically commented on my decision to avoid over-engineering. The
+feedback also pointed out that testing often leads to better refactoring
+and better code.</p>
+<p>That matched my experience during this enhancement.</p>
+<p>Once I started thinking seriously about how the application would be
+tested, several design weaknesses became more obvious.</p>
+<p>The loader became easier to test after it stopped printing directly
+to the console.</p>
+<p>The modular structure made it easier to isolate behavior.</p>
+<p>Clear ownership made the tree easier to reason about.</p>
+<p>For the final version, I kept the enhancement focused rather than
+adding features simply to make the project look more complex.</p>
+<h2 id="reflection">Reflection</h2>
+<p>The most important lesson I learned from this enhancement was that
+professional software development involves more than producing the
+correct output.</p>
+<p>The original project worked.</p>
+<p>It could load course information, store it in a binary search tree,
+print the catalog, and search for courses.</p>
+<p>The enhancement did not change the main purpose of the
+application.</p>
+<p>What changed was the quality of the internal design.</p>
+<p>The enhanced version is easier to understand, safer to maintain,
+easier to test, and better prepared for future changes.</p>
+<p>Working with <code>std::unique_ptr</code> also changed the way I
+think about ownership in C++. Instead of simply thinking about where a
+node exists in memory, I now think about which object owns it and when
+that ownership should end.</p>
+<p>The structured loading result changed the way I think about
+interfaces. A function should provide useful information to its caller
+without deciding how that information must be displayed.</p>
+<p>Automated testing changed the way I think about design. Code that is
+difficult to test is often giving a warning that its responsibilities
+are too tightly connected.</p>
+<p>Overall, this enhancement represents an important shift in my
+development as a software engineer.</p>
+<p>The original artifact shows that I could implement the required
+functionality.</p>
+<p>The enhanced version shows that I now think more carefully about
+maintainability, ownership, testing, reuse, validation, and the needs of
+other developers who may work with the code later.</p>
+<p>That growth is the main reason this artifact belongs in my
+professional ePortfolio.</p></article></main>
+    <footer>Computer Science Capstone · Adil Patel · Southern New Hampshire University · 2026</footer>
+</body>
+</html>

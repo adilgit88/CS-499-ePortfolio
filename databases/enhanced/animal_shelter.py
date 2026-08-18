@@ -1,6 +1,6 @@
 """Secure and testable MongoDB data-access layer for animal records.
 
-The enhanced class keeps the small CRUD-focused design of the original CS 340
+The enhanced class keeps the small CRUD-focused design of the original database programming
 artifact while adding configuration validation, connection verification,
 structured logging, lifecycle management, safer update rules, useful indexes,
 and more informative operation results.

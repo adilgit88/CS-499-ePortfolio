@@ -1,51 +1,315 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Algorithms Narrative | Adil Patel CS 499</title><link rel="stylesheet" href="../styles.css"></head><body><header><nav class="nav"><div class="brand">Adil Patel · CS 499</div><a href="../index.html">Home</a><a href="../self-assessment/index.html">Self-Assessment</a><a href="../code-review/index.html">Code Review</a><a href="../software-design-engineering/index.html">Software Design</a><a href="../algorithms-data-structures/index.html">Algorithms</a><a href="../databases/index.html">Databases</a></nav></header><main style="padding-top:34px"><article class="content"><h1>CS 499 Artifact Narrative: Algorithms and Data Structures</h1>
-<p><strong>Adil Patel</strong></p>
-<p>Southern New Hampshire University</p>
-<p>CS 499: Computer Science Capstone</p>
-<p><strong>Artifact:</strong> CS 300 ABCU Course Planner</p>
-<p><strong>Original Data Structure:</strong> Binary Search Tree</p>
-<p><strong>Enhanced Data Structure:</strong> Self-Balancing AVL Tree</p>
-<p><strong>Enhancement Focus:</strong> Algorithmic Efficiency, Worst-Case Performance, Testing, and Design Trade-Offs</p>
-<p><strong>Enhancement Completed:</strong> July 2026</p>
-<h2>Artifact Description</h2>
-<p>The artifact I selected for my Algorithms and Data Structures enhancement is the ABCU Course Planner that I originally created in CS 300. The application is written in C++ and reads a university course catalog from a CSV file. Each course contains a course number, course name, and prerequisite list. The program allows a user to load the catalog, print courses in alphanumeric order, search for an individual course, and view its prerequisites.</p>
-<p>Before this enhancement, I had already improved the artifact for Software Design and Engineering by separating the program into focused components, replacing raw owning pointers with <code>std::unique_ptr</code>, improving input handling, and adding tests. For this enhancement, I preserved those improvements while changing the central data structure from an ordinary binary search tree to a self-balancing AVL tree.</p>
-<h2>Why I Selected This Artifact</h2>
-<p>I selected this artifact because it provides a clear example of how a data-structure decision affects performance. The original BST can perform well when its shape is reasonably balanced, but it does not control that shape. If course numbers arrive in sorted order, the tree can become a long one-sided chain and search or insertion can degrade to O(n).</p>
-<p>The AVL tree addresses that weakness by maintaining a height difference of no more than one between the left and right subtrees. Each node stores its height. After insertion, the algorithm updates heights, calculates the balance factor, and performs one of four rotation cases when needed: left-left, right-right, left-right, or right-left.</p>
-<p>The enhanced implementation also uses <code>std::unique_ptr</code>, so rotations required careful movement of node ownership while preserving the binary-search ordering rule.</p>
-<h2>Multiple Data Structures</h2>
-<p>The program also retains an <code>unordered_set</code> during CSV validation. The AVL tree is used for ordered storage and predictable search, while the <code>unordered_set</code> provides fast average membership checks when validating prerequisite course numbers. Using each structure for the job it handles well is better than forcing one structure to solve every requirement.</p>
-<h2>Performance Improvement</h2>
-<table><thead><tr><th>Area</th><th>Milestone Two BST</th><th>Milestone Three AVL</th></tr></thead><tbody>
-<tr><td>Tree shape</td><td>Depends on insertion order</td><td>Automatically rebalanced</td></tr>
-<tr><td>Worst-case search</td><td>O(n)</td><td>O(log n)</td></tr>
-<tr><td>Worst-case insertion</td><td>O(n)</td><td>O(log n)</td></tr>
-<tr><td>Node information</td><td>Course and child pointers</td><td>Course, child pointers, and height</td></tr>
-<tr><td>Balance control</td><td>None</td><td>AVL rotations</td></tr>
-<tr><td>Diagnostics</td><td>Size and empty checks</td><td>Size, height, root, and balance validation</td></tr>
-</tbody></table>
-<p>There is a trade-off. The AVL tree stores one additional height value per node and may perform rotations during insertion. The implementation is also more complex. I accepted that cost because the course planner is mainly used for loading, ordering, and repeated searching. Predictable O(log n) behavior is more valuable for this use case.</p>
-<h2>Testing and Measurable Evidence</h2>
-<p>I added focused tests for all four rotation patterns using short insertion sequences. I also created stress tests with 1,000 sorted records and 1,000 reverse-sorted records. These patterns are important because they represent the worst situation for the ordinary BST.</p>
-<p>A direct comparison program inserts 1,000 sorted keys into both an unbalanced BST probe and the AVL implementation. The measured results were:</p>
-<ul>
-<li>Unbalanced BST height: <strong>1,000</strong></li>
-<li>AVL tree height: <strong>10</strong></li>
-<li>AVL balance validation: <strong>passed</strong></li>
-</ul>
-<p>This makes the benefit of the enhancement measurable rather than purely theoretical. I also retained earlier tests for duplicate detection, sorted traversal, CSV validation, missing files, invalid prerequisites, and reload behavior so the algorithm change would not break existing features.</p>
-<h2>Course Outcome Alignment</h2>
-<p>This enhancement most directly supports the third program outcome. I identified a worst-case weakness, selected an AVL tree to address it, implemented the balancing rules, preserved ordering behavior, and tested correctness and tree height. The work demonstrates algorithm analysis and management of trade-offs.</p>
-<p>It also strongly supports the fourth outcome through modern C++ ownership, recursive algorithms, CMake, automated tests, strict compiler warnings, sanitizer checks, and a dedicated performance comparison executable.</p>
-<p>The second outcome is supported by documentation that explains the AVL algorithm, rotation cases, complexity differences, build process, testing process, and design trade-offs. The fifth outcome is supported more indirectly through safe memory ownership and controlled input handling. Collaboration is demonstrated more fully across the complete ePortfolio, but clear documentation, tests, and observable tree metrics make this artifact easier for another developer to understand.</p>
-<h2>Reflection on the Enhancement Process</h2>
-<p>The biggest lesson was that a data structure can return correct results and still be a weak choice under certain conditions. The earlier BST produced correct output, but complexity analysis showed that its performance depended too heavily on input order.</p>
-<p>The most difficult technical challenge was implementing AVL rotations while using <code>std::unique_ptr</code>. A rotation changes ownership relationships among several nodes, so I had to move nodes and saved subtrees carefully rather than copying raw-pointer examples.</p>
-<p>Updating node heights in the correct order was another challenge. To verify the structure more deeply, I added <code>isBalanced()</code>, which recursively calculates actual subtree heights and checks that stored height values and balance factors are correct.</p>
-<p>I also learned that performance testing should target the risk being discussed. Random insertion might make both trees look acceptable, so sorted insertion was the meaningful comparison. The difference between height 1,000 and height 10 showed exactly why the AVL enhancement matters.</p>
-<p>I deliberately did not add AVL deletion because the application&#x27;s actual requirements do not include interactive course deletion. Adding it would increase complexity and testing burden without solving a real use case.</p>
-<h2>Incorporating Instructor Feedback</h2>
-<p>My instructor specifically praised the test design and noted that software quality includes more than passing functional tests. Performance, observability, maintainability, and other qualities also matter. That feedback reinforced the value of the performance comparison, tree metrics, balance validation, modular design, and automated tests.</p>
-<h2>Overall Reflection</h2>
-<p>This enhancement changed how I evaluate algorithms. I now look beyond whether a data structure works and consider how it behaves under different inputs, what guarantees it provides, what implementation costs it introduces, and whether those trade-offs fit the application. The course planner still looks familiar to the user, but internally it now has a tested and measurable performance guarantee.</p></article></main><footer>CS 499 Computer Science Capstone · Adil Patel · Southern New Hampshire University</footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Narrative explaining the AVL-tree algorithm enhancement, performance trade-offs, testing, feedback, and reflection.">
+    <title>Algorithms and Data Structures Narrative | Adil Patel</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header><nav class="nav" aria-label="Primary navigation"><div class="brand">Adil Patel · Computer Science ePortfolio</div><a href="../index.html">Home</a><a href="../self-assessment/index.html">Self-Assessment</a><a href="../code-review/index.html">Code Review</a><a href="../software-design-engineering/index.html">Software Design</a><a href="../algorithms-data-structures/index.html" aria-current="page">Algorithms</a><a href="../databases/index.html">Databases</a></nav></header>
+    <main id="main-content" class="page-main"><article class="content"><h1 id="algorithms-and-data-structures-narrative">Algorithms and Data
+Structures Narrative</h1>
+<p><strong>Adil Patel</strong><br />
+Computer Science Capstone</p>
+<h2 id="artifact-description">Artifact Description</h2>
+<p>The artifact I selected for this enhancement is the <strong>ABCU
+Course Planner</strong>, a C++ application I originally developed in my
+Data Structures and Algorithms coursework.</p>
+<p>The application reads a course catalog from a CSV file and stores
+information such as the course number, course name, and prerequisites. A
+user can load the catalog, display all courses in alphanumeric order,
+search for a specific course, and view its prerequisite information.</p>
+<p>Before beginning this enhancement, I had already improved the
+software design of the application by separating responsibilities into
+smaller components, replacing raw owning pointers with
+<code>std::unique_ptr</code>, improving input validation, and adding
+automated tests.</p>
+<p>For this enhancement, I focused specifically on the program's main
+data structure.</p>
+<p>The earlier version used a standard binary search tree. Although the
+tree produced correct results, its performance depended heavily on the
+order in which course records were inserted.</p>
+<p>I replaced the ordinary binary search tree with a
+<strong>self-balancing AVL tree</strong> to provide more predictable
+search and insertion performance.</p>
+<h2 id="why-i-selected-this-artifact">Why I Selected This Artifact</h2>
+<p>I selected this artifact because it demonstrates an important
+difference between a program that is functionally correct and one that
+is designed to perform reliably under different conditions.</p>
+<p>The original binary search tree correctly stored and searched course
+records.</p>
+<p>The problem was its shape.</p>
+<p>A normal binary search tree does not automatically keep itself
+balanced. If values are inserted in a favorable order, the tree may
+remain reasonably balanced and provide good performance.</p>
+<p>However, if course numbers are inserted in sorted or nearly sorted
+order, each new node can be added to the same side of the tree.</p>
+<p>The tree can then become a long chain rather than a balanced
+structure.</p>
+<p>In this worst-case situation, insertion and search can degrade to
+<strong>O(n)</strong> performance.</p>
+<p>This means that as the amount of data grows, the program may need to
+examine many or even all nodes to find a record.</p>
+<p>The application may still return the correct answer, but its
+performance becomes dependent on the order of the input data.</p>
+<p>That weakness made the project a strong choice for demonstrating
+growth in algorithm analysis and data-structure selection.</p>
+<h2 id="avl-tree-enhancement">AVL Tree Enhancement</h2>
+<p>To address the weakness of the original structure, I implemented an
+AVL tree.</p>
+<p>An AVL tree is a binary search tree that automatically maintains its
+balance.</p>
+<p>Each node stores its current height.</p>
+<p>After a successful insertion, the tree updates the height of the
+affected nodes and calculates a balance factor based on the difference
+between the left and right subtree heights.</p>
+<p>A balanced AVL node has a balance factor between negative one and
+positive one.</p>
+<p>When that range is exceeded, the tree performs rotations to restore
+balance.</p>
+<p>I implemented all four AVL rotation cases:</p>
+<p>Left-left, right-right, left-right, and right-left.</p>
+<p>The rotations change the structure of the tree while preserving the
+binary-search ordering rule.</p>
+<p>Smaller course numbers remain on the left side of a node, and larger
+course numbers remain on the right.</p>
+<p>The difference is that the tree actively prevents one side from
+becoming significantly taller than the other.</p>
+<h2 id="working-with-modern-c-ownership">Working With Modern C++
+Ownership</h2>
+<p>One of the more challenging parts of this enhancement was
+implementing rotations while continuing to use
+<code>std::unique_ptr</code>.</p>
+<p>Many basic AVL examples use raw pointers.</p>
+<p>My implementation required moving ownership of nodes and subtrees
+safely during each rotation.</p>
+<p>For example, during a right rotation, the left child becomes the new
+root of that section of the tree.</p>
+<p>The previous root must move below it, and the subtree between them
+must be preserved and reattached correctly.</p>
+<p>Using <code>std::unique_ptr</code> meant I could not simply copy
+pointer relationships.</p>
+<p>I had to think carefully about which object owned each node before
+and after the rotation.</p>
+<p>This made the implementation more challenging, but it also gave me a
+stronger understanding of what each rotation is actually doing.</p>
+<h2 id="maintaining-tree-heights">Maintaining Tree Heights</h2>
+<p>Correct height management was another important part of the
+implementation.</p>
+<p>After inserting a node or performing a rotation, the program must
+update heights in the correct order.</p>
+<p>The lower node must be updated before the new root because the new
+root's height depends on the corrected height of its children.</p>
+<p>A tree can appear visually balanced while still storing incorrect
+height information.</p>
+<p>To detect this type of problem, I added an <code>isBalanced()</code>
+function.</p>
+<p>This function recursively evaluates the actual height of each
+subtree, checks the difference between the left and right sides, and
+verifies that the stored node heights match the calculated values.</p>
+<p>This provides stronger validation than simply checking whether the
+root appears correct.</p>
+<h2 id="using-the-right-structure-for-the-right-task">Using the Right
+Structure for the Right Task</h2>
+<p>The enhanced application does not rely on one data structure for
+every operation.</p>
+<p>The AVL tree is used for ordered storage, searching, and alphanumeric
+traversal.</p>
+<p>The CSV-loading process also uses an <code>unordered_set</code> to
+quickly verify whether prerequisite course numbers exist.</p>
+<p>This was an important design decision.</p>
+<p>The AVL tree provides predictable search performance while
+maintaining sorted data.</p>
+<p>The <code>unordered_set</code> provides fast average-case membership
+checks.</p>
+<p>Using both structures demonstrates that choosing a data structure is
+not about selecting one structure and forcing it to handle every
+requirement.</p>
+<p>Different structures are useful for different operations.</p>
+<p>A professional solution should use each structure where it provides
+the most value.</p>
+<h2 id="performance-comparison">Performance Comparison</h2>
+<p>The strongest evidence for this enhancement comes from testing the
+AVL tree under the same conditions that create problems for the original
+binary search tree.</p>
+<p>I created a performance comparison using <strong>1,000 sorted
+values</strong>.</p>
+<p>Sorted input represents a worst-case situation for an ordinary binary
+search tree because each new node can be placed on the same side.</p>
+<p>With 1,000 sorted values, the unbalanced binary search tree reached a
+height of:</p>
+<p><strong>1,000</strong></p>
+<p>The AVL tree using the same values reached a height of:</p>
+<p><strong>10</strong></p>
+<p>The AVL balance validation also passed.</p>
+<p>This difference demonstrates why the enhancement matters.</p>
+<p>The ordinary tree becomes a one-sided structure whose height grows
+directly with the number of records.</p>
+<p>The AVL tree remains compact because it continuously rebalances
+itself.</p>
+<p>The result turns the algorithm discussion into measurable evidence
+instead of relying only on theory.</p>
+<h2 id="complexity-and-trade-offs">Complexity and Trade-Offs</h2>
+<p>The enhancement improves worst-case search and insertion from
+<strong>O(n)</strong> in the ordinary binary search tree to
+<strong>O(log n)</strong> in the AVL tree.</p>
+<p>However, this improvement is not free.</p>
+<p>Each AVL node stores an additional height value.</p>
+<p>Insertion requires balance calculations.</p>
+<p>Some insertions also require one or more rotations.</p>
+<p>The implementation is more complex than a standard binary search
+tree.</p>
+<p>For this application, I consider that trade-off worthwhile.</p>
+<p>The Course Planner loads a catalog and then performs searches against
+that data. Predictable search performance is more valuable than the
+small memory savings and simpler implementation of an unbalanced
+tree.</p>
+<p>This experience reinforced an important lesson about algorithm
+design.</p>
+<p>The most advanced or complicated structure is not automatically the
+best choice.</p>
+<p>The correct choice depends on the needs of the application and the
+trade-offs involved.</p>
+<h2 id="automated-testing">Automated Testing</h2>
+<p>Testing was an important part of verifying the enhancement.</p>
+<p>I created focused tests for all four AVL rotation patterns.</p>
+<p>The test sequences were selected specifically to trigger the
+different cases and confirm that the tree rebalanced correctly.</p>
+<p>I also tested large sorted and reverse-sorted datasets.</p>
+<p>These tests are more meaningful than random input because they
+intentionally create conditions that expose the weakness of the original
+binary search tree.</p>
+<p>In addition to the new AVL tests, I kept the earlier tests for
+duplicate detection, sorted traversal, CSV validation, missing files,
+invalid prerequisites, and reload behavior.</p>
+<p>Maintaining these tests was important because improving the data
+structure should not break existing functionality.</p>
+<p>The enhanced program should still behave correctly from the user's
+point of view even though the internal structure has changed
+significantly.</p>
+<h2 id="observability-and-maintainability">Observability and
+Maintainability</h2>
+<p>Another improvement was making the internal state of the tree easier
+to evaluate.</p>
+<p>The enhanced application can report information such as the number of
+nodes, tree height, root value, and balance status.</p>
+<p>These details improve observability.</p>
+<p>Instead of only checking whether the program prints the expected
+course, I can inspect important properties of the structure itself.</p>
+<p>This is valuable during development and testing because an algorithm
+may appear to work while still violating an internal rule.</p>
+<p>Clear diagnostics, automated tests, and modular code also make the
+implementation easier for another developer to understand and
+maintain.</p>
+<h2 id="design-decisions">Design Decisions</h2>
+<p>One design decision I made was not to implement AVL deletion.</p>
+<p>The Course Planner is designed primarily to load a course catalog,
+display course information, and search for records.</p>
+<p>Interactive deletion is not part of the application's current
+requirements.</p>
+<p>Adding AVL deletion would have increased the size and complexity of
+the implementation and would have required additional testing without
+solving a real problem for the current application.</p>
+<p>I chose to focus on insertion, search, traversal, and balance because
+those operations directly support the intended use of the software.</p>
+<p>This decision reflects an important professional lesson: adding more
+features does not automatically create a better solution.</p>
+<p>The goal should be to solve the actual problem completely and
+clearly.</p>
+<h2 id="professional-skills-demonstrated">Professional Skills
+Demonstrated</h2>
+<p>This enhancement demonstrates my ability to analyze an existing
+computing solution rather than simply rewrite it.</p>
+<p>I identified a specific performance weakness.</p>
+<p>I evaluated why that weakness could occur.</p>
+<p>I selected an appropriate data structure to address it.</p>
+<p>I implemented the balancing algorithm.</p>
+<p>I created tests for both correctness and structural behavior.</p>
+<p>I measured the difference between the original and enhanced
+solutions.</p>
+<p>I also evaluated the cost of the enhancement rather than presenting
+the AVL tree as automatically better in every situation.</p>
+<p>These are skills that apply beyond this particular project.</p>
+<p>Professional software development requires understanding not only how
+an algorithm works, but also why it is appropriate for a particular
+problem.</p>
+<h2 id="course-outcome-alignment">Course Outcome Alignment</h2>
+<p>This enhancement strongly supports the program outcome focused on
+designing and evaluating computing solutions using algorithmic
+principles while managing design trade-offs.</p>
+<p>I did not simply replace one tree with another.</p>
+<p>I identified a worst-case performance weakness, selected a
+self-balancing structure, implemented the required rotations, verified
+structural invariants, and measured the resulting improvement.</p>
+<p>The work also supports the outcome focused on using well-founded
+computing techniques and tools.</p>
+<p>The project uses modern C++ ownership, recursive algorithms, CMake,
+automated testing, strict compiler practices, and performance comparison
+tools to create a solution that can be verified and maintained.</p>
+<p>Professional communication is demonstrated through documentation,
+readable interfaces, test results, and the explanation of the algorithm
+and its trade-offs.</p>
+<p>The artifact also supports collaboration because another developer
+can examine the tree metrics, tests, and documentation to understand
+both how the implementation works and why the design was selected.</p>
+<p>Security is not the main focus of this artifact, but safe memory
+ownership, controlled input handling, and testing help reduce the risk
+of unstable or unexpected behavior.</p>
+<h2 id="incorporating-feedback">Incorporating Feedback</h2>
+<p>The feedback I received on this enhancement emphasized that
+successful software involves more than passing functional tests.</p>
+<p>Performance, observability, maintainability, and other
+software-quality characteristics also matter.</p>
+<p>That feedback reinforced the reason I included more than basic
+correctness testing.</p>
+<p>The performance comparison demonstrates how the data structure
+behaves under a difficult input pattern.</p>
+<p>The tree-height and balance functions improve observability.</p>
+<p>The modular structure and automated tests improve
+maintainability.</p>
+<p>For the final portfolio, I kept these elements because they show that
+the enhancement is not simply an AVL tree implementation.</p>
+<p>It is an evaluation of how a data-structure choice affects the
+overall quality of a software solution.</p>
+<h2 id="reflection">Reflection</h2>
+<p>The biggest lesson I learned from this enhancement is that correct
+output does not necessarily mean that the underlying solution is
+strong.</p>
+<p>The original binary search tree worked.</p>
+<p>It passed its basic tests.</p>
+<p>It could load course information and return the correct records.</p>
+<p>If I had only looked at the final output, there would have been
+little reason to change it.</p>
+<p>Algorithm analysis revealed the weakness.</p>
+<p>The performance of the tree could change dramatically depending on
+the order of the input.</p>
+<p>That helped me understand the difference between asking:</p>
+<p>Does the program work?</p>
+<p>and asking:</p>
+<p>How will the program behave when the input changes or grows?</p>
+<p>Both questions are important.</p>
+<p>Implementing rotations with <code>std::unique_ptr</code> also
+strengthened my understanding of data structures.</p>
+<p>I had to think about tree balance, node height, ownership, and
+ordering at the same time.</p>
+<p>Testing sorted input showed me why test data should be chosen
+intentionally.</p>
+<p>Random input might make the original tree appear acceptable.</p>
+<p>Sorted input directly exposes the problem I was trying to solve.</p>
+<p>Overall, this enhancement represents growth in the way I evaluate
+algorithms.</p>
+<p>I now think more carefully about worst-case behavior, scalability,
+structural guarantees, implementation complexity, testing, and the needs
+of the application.</p>
+<p>The enhanced Course Planner still provides the same familiar
+functionality to the user.</p>
+<p>Internally, however, it now uses a data structure whose performance
+is predictable, measurable, and supported by automated evidence.</p>
+<p>That is why this artifact is an important part of my professional
+ePortfolio.</p></article></main>
+    <footer>Computer Science Capstone · Adil Patel · Southern New Hampshire University · 2026</footer>
+</body>
+</html>

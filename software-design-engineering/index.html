@@ -1,1 +1,34 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Software Design &amp; Engineering | Adil Patel CS 499</title><link rel="stylesheet" href="../styles.css"></head><body><header><nav class="nav"><div class="brand">Adil Patel · CS 499</div><a href="../index.html">Home</a><a href="../self-assessment/index.html">Self-Assessment</a><a href="../code-review/index.html">Code Review</a><a href="../software-design-engineering/index.html">Software Design</a><a href="../algorithms-data-structures/index.html">Algorithms</a><a href="../databases/index.html">Databases</a></nav></header><main style="padding-top:34px"><article class="content"><h1>Software Design &amp; Engineering</h1><p class="muted">ABCU Course Planner · CS 300 · Enhancement One</p><p>This enhancement transforms the original single-file C++ course planner into a modular, testable application with safer memory ownership and clearer interfaces.</p><div class="links"><a class="button" href="original/ProjectTwo.cpp">View Original Code</a><a class="button" href="enhanced/README.md">View Enhanced Artifact</a><a class="button secondary" href="narrative.html">Read Narrative</a></div><h2>Key improvements</h2><ul><li>Separated course model, tree, loader, UI, and tests</li><li>Replaced raw owning pointers with <code>std::unique_ptr</code></li><li>Replaced destructor/placement-new reset with <code>clear()</code></li><li>Added structured load results and automated tests</li></ul></article></main><footer>CS 499 Computer Science Capstone · Adil Patel · Southern New Hampshire University</footer></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Software design and engineering enhancement of a C++ course planner with modular architecture, safer memory ownership, validation, and testing.">
+    <title>Software Design &amp; Engineering | Adil Patel</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+    <header><nav class="nav" aria-label="Primary navigation"><div class="brand">Adil Patel · Computer Science ePortfolio</div><a href="../index.html">Home</a><a href="../self-assessment/index.html">Self-Assessment</a><a href="../code-review/index.html">Code Review</a><a href="../software-design-engineering/index.html" aria-current="page">Software Design</a><a href="../algorithms-data-structures/index.html">Algorithms</a><a href="../databases/index.html">Databases</a></nav></header>
+    <main id="main-content" class="page-main">
+<article class="content">
+    <h1>Software Design &amp; Engineering</h1>
+    <p class="muted">ABCU Course Planner · Software Design &amp; Engineering Enhancement</p>
+    <p>This enhancement transforms the original single-file C++ course planner into a modular, testable application with safer memory ownership and clearer interfaces.</p>
+    <div class="links">
+        <a class="button" href="https://github.com/adilgit88/CS-499-ePortfolio/blob/main/software-design-engineering/original/ProjectTwo.cpp">View Original on GitHub</a>
+        <a class="button" href="https://github.com/adilgit88/CS-499-ePortfolio/tree/main/software-design-engineering/enhanced">View Enhanced on GitHub</a>
+        <a class="button secondary" href="narrative.html">Read Narrative</a>
+    </div>
+    <h2>Key improvements</h2>
+    <ul>
+        <li>Separated the course model, tree, loader, user interface, and tests</li>
+        <li>Replaced raw owning pointers with <code>std::unique_ptr</code></li>
+        <li>Replaced the destructor/placement-new reset with <code>clear()</code></li>
+        <li>Added structured load results, stronger validation, and automated tests</li>
+    </ul>
+</article>
+</main>
+    <footer>Computer Science Capstone · Adil Patel · Southern New Hampshire University · 2026</footer>
+</body>
+</html>
